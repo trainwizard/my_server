@@ -1,0 +1,25 @@
+
+<% if @user.errors.any? %>
+  <p>There are <%= @user.errors.count %> errors.</p>
+  <ul>
+    <%  @user.errors.full_messages.each do |message| %>
+    <li> <%= message %> </li>
+    <% end %>
+</ul>
+  <% end %>
+<p>
+  <%= f.label :username, "Username" %>
+  <%= f.text_field :username %>
+</p>
+<p>
+  <%= f.label :email, "Email" %>
+  <%= f.text_field :email %>
+</p>
+<p>
+  <%= f.label :password, "Password" %>
+  <%= f.password_field :password %>
+</p>
+<p>
+  <%= f.label :password_confirmation, "Confirmation" %>
+  <%= f.password_field :password_confirmation %>
+</p>

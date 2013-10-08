@@ -1,3 +1,8 @@
-<h1>Edit user</h1>
+<% provide(:title, "Edit user") %>
+<h1>Update your profile</h1>
 
-<%= render 'user_form'%>
+<%= form_for @user do |f| %>
+<%= render 'user_form', f: f %>
+ <%=f.submit "Update account"%>
+<% end %>
+
