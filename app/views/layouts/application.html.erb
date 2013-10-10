@@ -8,7 +8,22 @@
 </head>
 <body>
 
-<%= yield %>
+   <% flash.each do |level, message| %>
+      <div class="alert alert-<%= level %>"><%= message %> </div>
+  <% end %>
+  
+  <nav class="navbar navbar-inverse" role="navigation">
+    <p class="navbar-text">Hi, click something</p> <!--add username once log on is fixed-->
+      <button type="button" class="btn btn-default navbar-btn">Welcome</button>
+      <button type="button" class="btn btn-default navbar-btn">Sign in</button>
+      <button type="button" class="btn btn-default navbar-btn">List</button>
+  </nav>
+  
+  <div class="container">
+  <%= yield %>
+  </div>
 
+  
+  
 </body>
 </html>
