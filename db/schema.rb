@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131016134357) do
+ActiveRecord::Schema.define(version: 20131030130740) do
+
+  create_table "referees", force: true do |t|
+    t.string   "file_location"
+    t.string   "name"
+    t.string   "rules_url"
+    t.integer  "players_per_game"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "referees", ["user_id"], name: "index_referees_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "username"
