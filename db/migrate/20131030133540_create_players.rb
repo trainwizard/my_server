@@ -4,10 +4,10 @@ class CreatePlayers < ActiveRecord::Migration
       t.string :file_location
       t.text :description
       t.string :name
-      t.bool :downloadable
-      t.bool :playable
-      t.reference :user
-      t.reference :contest
+      t.boolean :downloadable
+      t.boolean :playable
+      t.references :user
+      t.references :contest
 
       t.timestamps
     end
