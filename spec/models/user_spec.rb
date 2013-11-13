@@ -107,9 +107,7 @@ describe User do
       specify { expect(authenticated_user).to be_false }
     end
   end
-<<<<<<< HEAD
-end
-=======
+
 
   describe "admin capabilities" do
     let(:admin) { FactoryGirl.create(:admin) }
@@ -123,4 +121,4 @@ end
     specify { expect(contest_creator).to be_contest_creator }
   end
 end
->>>>>>> acdf93487b95617f859942359f97567d501cba57
+

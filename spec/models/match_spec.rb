@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 describe Match do
-<<<<<<< HEAD
-  pending "add some examples to (or delete) #{__FILE__}"
-=======
+
   let (:match) { FactoryGirl.create(:contest_match) }
   subject { match }
 
@@ -17,5 +15,5 @@ describe Match do
     it { should be_valid }
     specify { expect_required_attribute(:manager) }
   end
->>>>>>> 4b4494008ef6b2840b0b84d13f14c267a47c118c
+
 end
