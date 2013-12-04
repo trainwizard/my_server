@@ -16,6 +16,9 @@ class SessionsController < ApplicationController
   end #create end
   
   def destroy
+        cookies.delete :user_id
+    flash[:info] = "Logged Out"
+    redirect_to root_path
   end #destroy end
   
 

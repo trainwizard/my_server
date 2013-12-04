@@ -19999,3 +19999,29 @@ AbstractController::ActionNotFound (The action 'index' could not be found for Re
 
 
   Rendered /home/action/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.0.0/lib/action_dispatch/middleware/templates/rescues/unknown_action.erb within rescues/layout (0.7ms)
+  [1m[36m (54.8ms)[0m  [1mCREATE TABLE "contests" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "deadline" datetime, "start" datetime, "description" text, "name" varchar(255), "contest_type" varchar(255), "user_id" integer, "referee_id_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (4.9ms)[0m  CREATE TABLE "matches" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "status" varchar(255), "completion" date, "earliest_start" datetime, "manager_id" integer, "manager_type" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (7.2ms)[0m  [1mCREATE INDEX "index_matches_on_manager_id_and_manager_type" ON "matches" ("manager_id", "manager_type")[0m
+  [1m[35m (7.1ms)[0m  CREATE TABLE "player_matches" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "score" float, "result" varchar(255), "player_id" integer, "match_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (5.3ms)[0m  [1mCREATE INDEX "index_player_matches_on_match_id" ON "player_matches" ("match_id")[0m
+  [1m[35m (7.3ms)[0m  CREATE INDEX "index_player_matches_on_player_id" ON "player_matches" ("player_id")
+  [1m[36m (10.1ms)[0m  [1mCREATE TABLE "players" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "file_location" varchar(255), "description" text, "name" varchar(255), "downloadable" boolean, "playable" boolean, "user_id" integer, "contest_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (10.4ms)[0m  CREATE TABLE "referees" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "file_location" varchar(255), "name" varchar(255), "rules_url" varchar(255), "players_per_game" integer, "user_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (7.0ms)[0m  [1mCREATE INDEX "index_referees_on_user_id" ON "referees" ("user_id")[0m
+  [1m[35m (4.8ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "username" varchar(255), "created_at" datetime, "updated_at" datetime, "password_digest" varchar(255), "email" varchar(255), "admin" boolean DEFAULT 'f', "contest_creator" boolean, "banned" boolean, "chat_url" varchar(255)) 
+  [1m[36m (8.5ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [1m[35m (18.5ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.2ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (9.1ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20131030135439')
+  [1m[36m (10.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20130913132115')[0m
+  [1m[35m (12.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20130918132538')
+  [1m[36m (5.0ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20130918133601')[0m
+  [1m[35m (5.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20130921185841')
+  [1m[36m (6.0ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20131016134357')[0m
+  [1m[35m (5.1ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20131030130740')
+  [1m[36m (5.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20131030131437')[0m
+  [1m[35m (9.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20131030133540')
+  [1m[36m (12.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20131030133912')[0m
+  [1m[35m (5.3ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20131030134557')
+  [1m[36m (11.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20131030135037')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
