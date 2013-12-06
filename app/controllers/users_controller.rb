@@ -3,62 +3,67 @@ class UsersController < ApplicationController
   before_action :ensure_correct_user, only: [:edit, :update]
   before_action :ensure_admin_user, only: [:destroy]
   before_action :ensure_not_logged_in, only: [:new, :create]
+
+  
+  respond_to :html, :json, :xml
+  
+  def index
+    @users = User.all
+    respond_with(@users)
+  end
   
   def new
-    @user = User.new
+      @user = User.new
+      respond_with(@user)
   end
   
   def create
-    @user = User.new(user_params)
-    if @user.save then
-      log_in(@user)
-      flash[:success] = "Welcome to the site: #{@user.username}"
-      redirect_to @user     
-    else
-      render 'new'
-    end
+      @user = User.new(permittedparams)
+      if @user.save then
+        flash[:success] = "Welcome to the site #{@user.username}! You are now logged in!"
+        logIn(@user)
+      end
+      respond_with(@user)
   end
-    
-  def edit
+  
+  def show
+    @user = User.find(params[:id])
+  end
+
+  def edit 
+    respond_with(@user)
   end
     
   def update
     @user = User.find(params[:id])
-    if @user.update_attributes(user_params)
-      flash[:success] = "Acccount #{@user.username} updated successfully!"
-      redirect_to @user
-    else
-      render 'edit'
+    if @user.update_attributes(permittedparams)
+      flash[:success] = "Profile updated"
     end
+    respond_with(@user)
   end
-    
-  def index
-    @users = User.all
-  end
-    
-  def show
-    @user = User.find(params[:id])
-  end
-    
+
   def destroy
     @user = User.find(params[:id])
-    if !current_user?(@user)
+    if @user.admin?
+      flash[:danger] = "You can not delete an admin account!"
+      redirect_to root_path
+    elsif !current_user?(@user)
       @user.destroy
-      flash[:success] = "User destroyed."
+      flash[:success] = "User was destroyed."
       redirect_to users_path
     else
-      flash[:danger] = "Can't delete yourself."
+      flash[:danger] = "You cannot delete yourself."
       redirect_to root_path
     end 
-  end 
+  end     
     
   private
-    def user_params
-      params.require(:user).permit(:username, :email, :password, :password_confirmation)
-    end
+    def permittedparams
+      permittedparams = params.require(:user).permit(:username,:password,:password_confirmation,:email)
+    end    
     
     def ensure_admin_user
-      redirect_to root_path, flash: { :danger => "Must be admin!" } unless current_user.admin?
+     redirect_to root_path, flash: { :danger => "Must be admin!" } unless current_user.admin?
     end 
    
     def ensure_user_logged_in
@@ -73,5 +78,5 @@ class UsersController < ApplicationController
     def ensure_not_logged_in
       redirect_to root_path, flash: { :warning => "You are logged in and cannot perform that action!" } unless !logged_in?
     end
-    
+
 end

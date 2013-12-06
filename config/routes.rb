@@ -1,15 +1,20 @@
-GameContestServer::Application.routes.draw do
+GameContestServer::Application.routes.draw do  
   resources :users
-  resources :sessions, only:[ :new, :create, :destroy]
+  root 'sessions#new'
+  get 'signup', to: 'users#new', as: 'signup'
+  
+  resources :sessions, only: [:new, :create, :destroy]
+  get 'login', to: 'sessions#new', as: 'login'
+  delete 'logout', to: 'sessions#destroy', as: 'logout'
+  
   resources :referees
+  
   resources :contests do
     resources :players, shallow: true
-    resources :matches, shallow: true, only:[ :index, :show]
+    resources :matches, shallow: true, only: [:index, :show]
   end
+
   
-  get 'signup', to: 'users#new', as: 'signup'
-  get 'login', to: 'sessions#new', as: 'login'
-  delete 'logout', to: 'sessios#destroy', as: 'logout'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

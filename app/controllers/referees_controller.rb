@@ -1,41 +1,47 @@
 class RefereesController < ApplicationController
-  before_action :ensure_user_logged_in, only: [:new, :create, :edit, :update, :destroy]
+  before_action :user_logged_in, only: [:new,:create,:destroy,:edit, :update]
   before_action :ensure_contest_creator, only: [:new, :create, :edit, :update]
-  before_action :ensure_correct_user, only: [:edit, :update]
-  
-  def new
-    @referee = current_user.referees.build
-  end 
-  
-  def create
-    @referee = current_user.referees.build(acceptable_params)
-    if @referee.save then
-      flash[:success] = "Referee #{@referee.name} created!"
-      redirect_to @referee     
-    else
-      render 'new'
-    end
-  end
+  #before_action :ensure_correct_user, only: [:edit, :update]
   
   def index
     @referees = Referee.all
   end
   
-  def show
-    @referee = Referee.find(params[:id])
+  def new
+    @referee = current_user.referees.build
   end
   
-  def update
-    if @referee.update_attributes(acceptable_params)
-      flash[:success] = "Referee #{@referee.name} updated successfully!"
+  def create
+    @referee = current_user.referees.build(acceptable_params)
+    if @referee.save
+      flash[:success]="Referee created"
       redirect_to @referee
     else
+      flash[:danger]="Error while trying to create the referee!"
+      render 'new'
+    end
+  end
+  
+  def show
+    @referee = Referee.find(params[:id])  
+  end
+  
+  def edit 
+    @referee = Referee.find(params[:id])
+  end
+    
+  def update
+    @referee = Referee.find(params[:id])
+    #@tempfilelocation = @referee.file_location
+    if @referee.update_attributes(acceptable_params)
+      flash[:success] = "Referee has been updated!"
+      redirect_to @referee
+    else
+      flash[:danger]="Error while trying to update the referee!"
       render 'edit'
     end
   end
   
-  def edit
-  end
   
   def destroy
     @referee = Referee.find(params[:id])
@@ -50,21 +56,21 @@ class RefereesController < ApplicationController
   end
   
   private
-    def acceptable_params
-      params.require(:referee).permit(:name, :rules_url, :players_per_game, :upload)
-    end
-    
+  
+  def acceptable_params
+    params.require(:referee).permit(:name, :rules_url, :players_per_game, :upload)
+  end
+   
+  def user_logged_in
+      redirect_to login_path, flash: { :warning => "Unable" } unless logged_in?
+  end
+  
+  def ensure_contest_creator 
+      redirect_to root_path, flash: { :danger => "You are not a contest creator!" } unless current_user.contest_creator?
+  end
+  
     def ensure_correct_user
       @referee = Referee.find(params[:id])
-      redirect_to root_path, flash: { :danger => "Must be Logged in as correct user!" } unless current_user?(@referee.user)
-    end 
-   
-    def ensure_user_logged_in
-     redirect_to login_path, flash: { :warning => "Unable, please log in!" } unless logged_in? 
+      redirect_to root_path, flash: { :danger => "Must be Logged in!" } unless current_user?(@referee.user_id)
     end
-    
-    def ensure_contest_creator 
-      redirect_to root_path, flash: { :danger => "You are not a contest creator!" } unless current_user.contest_creator?
-    end
-       
 end

@@ -1,9 +1,6 @@
 require 'spec_helper'
 
 describe Contest do
-
-  pending "add some examples to (or delete) #{__FILE__}"
-
   let (:contest) { FactoryGirl.create(:contest) }
   subject { contest }
 
@@ -112,5 +109,4 @@ describe Contest do
     specify { expect_required_attribute(:referee) }
     specify { expect_required_attribute(:user) }
   end
-
 end

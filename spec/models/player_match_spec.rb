@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe PlayerMatch do
-
   let (:player_match) { FactoryGirl.create(:player_match) }
   subject { player_match }
 
@@ -15,5 +14,4 @@ describe PlayerMatch do
     specify { expect_required_attribute(:player) }
     specify { expect_required_attribute(:match) }
   end
-
 end

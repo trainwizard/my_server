@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Player do
-
   let (:player) { FactoryGirl.create(:player) }
   subject { player }
 
@@ -80,5 +79,4 @@ describe Player do
     specify { expect_required_attribute(:user) }
     specify { expect_required_attribute(:contest) }
   end
-
 end

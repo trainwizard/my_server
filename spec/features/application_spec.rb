@@ -10,9 +10,9 @@ feature "HomePage" do
 
     it "has the proper links" do
       within ".navbar" do
-	should have_link('Game Contest Server', href: root_path)
-	should have_link('Users', href: users_path)
-	should have_link('Sign Up', href: signup_path)
+        should have_link('Game Contest Server', href: root_path)
+        should have_link('Users', href: users_path)
+        should have_link('Sign Up', href: signup_path)
       end
     end
   end

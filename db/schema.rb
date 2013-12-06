@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131030135439) do
+ActiveRecord::Schema.define(version: 20131030135023) do
 
   create_table "contests", force: true do |t|
     t.datetime "deadline"
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20131030135439) do
     t.string   "name"
     t.string   "contest_type"
     t.integer  "user_id"
-    t.integer  "referee_id_id"
+    t.integer  "referee_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -53,13 +53,16 @@ ActiveRecord::Schema.define(version: 20131030135439) do
     t.string   "file_location"
     t.text     "description"
     t.string   "name"
-    t.boolean  "downloadable"
-    t.boolean  "playable"
+    t.boolean  "downloadable",  default: false
+    t.boolean  "playable",      default: true
     t.integer  "user_id"
     t.integer  "contest_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "players", ["contest_id"], name: "index_players_on_contest_id"
+  add_index "players", ["user_id"], name: "index_players_on_user_id"
 
   create_table "referees", force: true do |t|
     t.string   "file_location"
@@ -80,8 +83,8 @@ ActiveRecord::Schema.define(version: 20131030135439) do
     t.string   "password_digest"
     t.string   "email"
     t.boolean  "admin",           default: false
-    t.boolean  "contest_creator"
-    t.boolean  "banned"
+    t.boolean  "contest_creator", default: false
+    t.boolean  "banned",          default: false
     t.string   "chat_url"
   end
 

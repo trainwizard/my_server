@@ -6,18 +6,29 @@ gem 'rails', '4.0.0'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
+
+gem 'validates_timeliness', github: 'softace/validates_timeliness', branch:  'support_for_rails4'
+
 group :test do
   gem 'capybara'
   gem 'factory_girl_rails'
   gem 'timecop'
+
 end
+
+# Use SCSS for stylesheets
+gem 'sass-rails', '~> 4.0.0'
+gem 'bootstrap-sass', github: 'thomas-mcdonald/bootstrap-sass'
+
+
+gem 'bcrypt-ruby', '~> 3.0.0'
 
 group :development, :test do
   gem 'rspec-rails'
+  gem 'guard-rspec'
 end
 
 gem 'bcrypt-ruby', '~> 3.0.0'
-gem 'validates_timeliness', github: 'softace/validates_timeliness', branch: 'support_for_rails4'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'

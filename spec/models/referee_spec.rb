@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Referee do
-
   let (:referee) { FactoryGirl.create(:referee) }
   subject { referee }
 
@@ -18,7 +17,6 @@ describe Referee do
   describe "validations" do
     it { should be_valid }
   end
-
 
   describe "empty file location" do
     before { referee.file_location = '' }
@@ -185,5 +183,4 @@ describe Referee do
     before { referee.players_per_game = 2.5 }
     it { should_not be_valid }
   end
-
 end

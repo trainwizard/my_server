@@ -1,14 +1,21 @@
 module SessionsHelper
   def current_user
-    @current_user ||= User.find(cookies.signed[:user_id]) if cookies.signed[:user_id]
-  end #current user
+    @current_user ||= User.find(cookies[:user_id]) if cookies[:user_id]
+  end
+
+  def logIn(user)
+    cookies[:user_id] = user.id
+  end
+  
+  def logOut(user)
+    cookies.delete :user_id    
+  end
   
   def current_user?(user)
     current_user == user
-  end #current user?
-  
+  end
+    
   def logged_in?
-    #!cookies[:user_id].nil?
     !current_user.nil?
-  end #logged in?
+  end
 end

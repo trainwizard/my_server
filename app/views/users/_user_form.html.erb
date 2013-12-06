@@ -1,15 +1,17 @@
-
 <% if @user.errors.any? %>
-  <p>There are <%= @user.errors.count %> errors.</p>
-  <ul>
-    <%  @user.errors.full_messages.each do |message| %>
-    <li class="text-danger"> <%= message %> </li>
-    <% end %>
-</ul>
+<div class="alert alert-danger">
+    <p>There are  <%= @user.errors.count %> errors.</p>
+</div>
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+      <li class="text-danger"><%= message %></li>
+      <% end %>
+    </ul>
   <% end %>
+
 <p>
   <%= f.label :username, "Username" %>
-  <%= f.text_field :username, class: 'form-control' %>
+  <%= f.text_field :username, class: 'form-control'%>
 </p>
 <p>
   <%= f.label :email, "Email" %>
@@ -22,5 +24,4 @@
 <p>
   <%= f.label :password_confirmation, "Confirmation" %>
   <%= f.password_field :password_confirmation, class: 'form-control' %>
-
 </p>

@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Match do
-
   let (:match) { FactoryGirl.create(:contest_match) }
   subject { match }
 
@@ -62,8 +61,8 @@ describe Match do
   describe "empty earliest_start" do
     describe "waiting" do
       before do
-	match.status = 'Waiting'
-	match.earliest_start = ''
+        match.status = 'Waiting'
+        match.earliest_start = ''
       end
 
       it { should_not be_valid }
@@ -71,8 +70,8 @@ describe Match do
 
     describe "started" do
       before do
-	match.status = 'Started'
-	match.earliest_start = ''
+        match.status = 'Started'
+        match.earliest_start = ''
       end
 
       it { should be_valid }
@@ -80,8 +79,8 @@ describe Match do
 
     describe "completed" do
       before do
-	match.status = 'Completed'
-	match.earliest_start = ''
+        match.status = 'Completed'
+        match.earliest_start = ''
       end
 
       it { should be_valid }
@@ -91,8 +90,8 @@ describe Match do
   describe "blank earliest_start" do
     describe "waiting" do
       before do
-	match.status = 'Waiting'
-	match.earliest_start = ' '
+        match.status = 'Waiting'
+        match.earliest_start = ' '
       end
 
       it { should_not be_valid }
@@ -100,8 +99,8 @@ describe Match do
 
     describe "started" do
       before do
-	match.status = 'Started'
-	match.earliest_start = ' '
+        match.status = 'Started'
+        match.earliest_start = ' '
       end
 
       it { should be_valid }
@@ -109,8 +108,8 @@ describe Match do
 
     describe "completed" do
       before do
-	match.status = 'Completed'
-	match.earliest_start = ' '
+        match.status = 'Completed'
+        match.earliest_start = ' '
       end
 
       it { should be_valid }
@@ -132,7 +131,7 @@ describe Match do
     before do
       match.players.clear
       match.manager.referee.players_per_game.times do
-	match.players << FactoryGirl.create(:player, contest: match.manager)
+        match.players << FactoryGirl.create(:player, contest: match.manager)
       end
     end
 
@@ -143,7 +142,7 @@ describe Match do
     before do
       match.players.clear
       (match.manager.referee.players_per_game + 1).times do
-	match.players << FactoryGirl.create(:player, contest: match.manager)
+        match.players << FactoryGirl.create(:player, contest: match.manager)
       end
     end
 

@@ -3,14 +3,16 @@ class Referee < ActiveRecord::Base
   has_many :contests
   has_many :matches, as: :manager
   
-  def upload=(uploaded_file)
-    if uploaded_file.nil?
-    else 
-      time_no_spaces = Time.now.to_s.gsub(/ /, '_')
-      file_location = Rails.root.join('code', 'referees', Rails.env, user.id.to_s + time_no_spaces).to_s
-      IO::copy_stream(uploaded_file, file_location.to_s)
-      uploaded_file.read
-    end #end if uploaded
-    self.file_location = file_location
-  end # end upload
-end #end class
+  validates :name, presence: true, uniqueness: true
+  VALID_URL_REGEX = /https?:\/\/[\S]+/i 
+  validates :rules_url, presence: true, format: { with: VALID_URL_REGEX }
+  validates :players_per_game, presence: true, :numericality => { :greater_than_or_equal_to => 1, :less_than_or_equal_to => 10, only_integer: true}
+  validates :file_location, presence: true
+      
+  include Uploadable
+  
+  def referee
+    self
+  end
+  
+end
