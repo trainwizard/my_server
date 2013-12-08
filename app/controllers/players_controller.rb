@@ -6,7 +6,7 @@ class PlayersController < ApplicationController
   def new
     contest = Contest.find(params[:contest_id])
     @player = contest.players.build
-  end 
+  end  #new
   
   # /contests/:contest_id/players
   def create
@@ -18,16 +18,16 @@ class PlayersController < ApplicationController
       redirect_to @player
     else
       render 'new'
-    end
-  end
+    end #if
+    end #create
   
   def index
     @players = Player.all
-  end
+  end #index
   
   def show
     @player = Player.find(params[:id])
-  end
+  end #shwo
   
   def update
     if @player.update_attributes(acceptable_params)
@@ -36,10 +36,10 @@ class PlayersController < ApplicationController
     else
       render 'edit'
     end
-  end
+  end #uupdatew
   
   def edit
-  end
+  end #edit
   
   def destroy
     @player = Player.find(params[:id])
@@ -51,7 +51,7 @@ class PlayersController < ApplicationController
       flash[:danger] = "Can't delete player."
       redirect_to root_path
     end 
-  end
+  end #destroy
   
   private
     def acceptable_params

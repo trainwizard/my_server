@@ -3,9 +3,9 @@ class MatchesController < ApplicationController
   def index
     @contest = Contest.find(params[:contest_id])
     @matches = @contest.matches
-  end
+  end #index
   
   def show
     @match=Match.find(params[:id])
-  end
-end
+  end #show
+end #class

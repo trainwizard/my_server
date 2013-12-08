@@ -5,7 +5,7 @@ class ContestsController < ApplicationController
   
   def new
     @contest = current_user.contests.build
-  end 
+  end #new
   
   def create
     @contest = current_user.contests.build(acceptable_params)
@@ -14,16 +14,16 @@ class ContestsController < ApplicationController
       redirect_to @contest     
     else
       render 'new'
-    end
-  end
+    end #if
+    end #create
   
   def index
     @contests = Contest.all
-  end
+  end #index
   
   def show
     @contest = Contest.find(params[:id])
-  end
+  end #show
   
   def update
     @contest = Contest.find(params[:id])
@@ -32,12 +32,12 @@ class ContestsController < ApplicationController
       redirect_to @contest
     else
       render 'edit'
-    end
-  end
+    end #if
+  end #update
   
   def edit
     @contest = Contest.find(params[:id])
-  end
+  end #edit
   
   def destroy
     @contest = Contest.find(params[:id])
@@ -48,20 +48,20 @@ class ContestsController < ApplicationController
     else
       flash[:danger] = "Can't delete contest."
       redirect_to root_path
-    end 
+    end #destroy
   end
   
   private
     def acceptable_params
       params.require(:contest).permit(:referee_id, :name, :contest_type, :description, :start, :deadline)
-    end
+    end #accet params
        
     def ensure_user_logged_in
      redirect_to login_path, flash: { :warning => "Unable, please log in!" } unless logged_in? 
-    end
+    end # ensure user logged in
     
     def ensure_contest_creator 
       redirect_to root_path, flash: { :danger => "You are not a contest creator!" } unless current_user.contest_creator?
-    end
+    end # ensure contest creatpr
     
 end
